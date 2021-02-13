@@ -6,10 +6,7 @@ namespace YgoApp.Models
 {
     public class YgoDbContext:DbContext
     {
-        public YgoDbContext(DbContextOptions<YgoDbContext> options):base(options)
-        {
-            
-        }
+        public YgoDbContext(DbContextOptions<YgoDbContext> options):base(options) { }
         
         public DbSet<User> Users { get; set; }
         

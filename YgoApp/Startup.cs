@@ -7,6 +7,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using YgoApp.Models;
+using YgoApp.Models.Repositories;
+using YgoApp.Models.Repositories.Implementations;
 
 namespace YgoApp
 {
@@ -24,8 +26,12 @@ namespace YgoApp
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddDbContext<YgoDbContext>(options => 
-                options.UseSqlServer(Configuration.GetConnectionString("DevConnection")));
+            // services.AddDbContext<YgoDbContext>(options => 
+            //     options.UseSqlServer(Configuration.GetConnectionString("DevConnection")));
+
+            services.AddDbContextPool<YgoDbContext>(opt =>
+                opt.UseSqlServer(Configuration.GetConnectionString("DevConnection")));
+            services.AddScoped<IUserRepository, UserRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -40,7 +46,8 @@ namespace YgoApp
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapGet("/", async context => { await context.Response.WriteAsync("Hello World!"); });
+                // endpoints.MapGet("/", async context => { await context.Response.WriteAsync("Hello World!"); });
+                endpoints.MapControllerRoute(name: "default", pattern: "{controller}/{action=Index}/{id?}");
             });
         }
     }

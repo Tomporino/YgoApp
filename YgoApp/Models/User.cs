@@ -13,6 +13,5 @@ namespace YgoApp.Models
         public string Password { get; set; }
         public string Email { get; set; }
         public long Rank { get; set; }
-        public ICollection<Deck> Decks { get; set; }
     }
 }

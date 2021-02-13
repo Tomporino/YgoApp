@@ -11,7 +11,6 @@ namespace YgoApp.Models
         public long Id { get; set; }
         [ForeignKey("UserId")]
         public long UserId { get; set; }
-        public string CardsList { get; set; }
         public ICollection<Card> Cards { get; set; }
     }
 }
